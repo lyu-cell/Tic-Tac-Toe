@@ -8,42 +8,55 @@ const Gameboard = (function () {
     const gameJudge = function () {
         const win = "123";
         if(player1.toString().replaceAll(",", "") === win) return player1 = [], "Player1 You Win!";
-        else if (player2.toString().replaceAll(",", "") === win) return "player2 You Win"
+        else if (player2.toString().replaceAll(",", "") === win) return player2 = [], "player2 You Win";
     }
 
-    const invokeJudge  = function() {
-        if (player1.length === 3 && player2.length === 3) {
+    const invokeJudge  = function(square, variable) {
+        
+        if (variable.length !== 3) {
+            variable.push(square);
+        }
+        
+        else if (variable.length === 3) {
+            console.log(player1, player2)
             return gameJudge()
         }
     }
 
     const player1s = function (square) {
-             if (player1.includes(square) === true && player2.includes(square) === true && 
-                gameboard.includes(square) === true) {
+
+        if (gameboard.includes(square) === false) return alert("Type Between 1-9 Numbers")
+        
+        else if (player1.includes(square) === true) return "It already exist!"
+
+        else if (player2.includes(square) === true && gameboard.includes(square) === true) {
                 
-                alert("Type number from 1-9 or square has been chosen")
-             }
-            if (player1.length === 3 && player2.length === 3) {
-                gameJudge()
-            }
-            
-            else return player1.push(square), invokeJudge();
+                return alert("Type number from 1-9 or square has been chosen")
         }
+            
+        else return  invokeJudge(square, player1);
+    }
 
     const player2s = function (square) {
+
+        if (gameboard.includes(square) === false) return alert("Type Between 1-9 Numbers")
         
-        if (player2.includes(square) === true && player1.includes(square) === true && gameboard.includes(square) === true) {
-             alert("Type number from 1-9 or chose a different square that is unselected!")
-            }
-            else return player2.push(square), invokeJudge();
-          
+        else if (player2.includes(square) === true) return "It already exist!"
+        
+        else if (player1.includes(square) === true && gameboard.includes(square) === true) {
+                
+                return alert("Type number from 1-9 or square has been chosen")
         }
+            
+        else return  invokeJudge(square, player2);
+    }
 
     return {player1s, player2s};
 })()
 
 
-
+// the winning annoucncement that gameJudge supposed to return isn't working.
+// problems with the if-else statements in the invokeJudge function.
 
 
 
