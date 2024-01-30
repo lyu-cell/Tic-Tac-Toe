@@ -1,64 +1,75 @@
 const Gameboard = (function () {
 
-    let player1 = [];
-    let player2 = [];
+    let player1x = [];
+    let player2o = [];
 
     const gameboard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    const gameJudge = function () {
-        const win = "123";
-        if(player1.toString().replaceAll(",", "") === win) return player1 = [], "Player1 You Win!";
-        else if (player2.toString().replaceAll(",", "") === win) return player2 = [], "player2 You Win";
+    function gamePatCall(playerVar) {
+        
+        if (playerVar.includes(1) === true && playerVar.includes(2) === true && playerVar.includes(3) === true || playerVar.includes(4) === true && 
+            playerVar.includes(5) === true && playerVar.includes(6) === true || playerVar.includes(7) === true && playerVar.includes(8) === true &&
+            playerVar.includes(9) === true || playerVar.includes(1) === true && playerVar.includes(4) === true && playerVar.includes(7) === true ||
+            playerVar.includes(2) === true && playerVar.includes(5) === true && playerVar.includes(8) === true || playerVar.includes(3) === true &&
+            playerVar.includes(6) === true && playerVar.includes(9) === true || playerVar.includes(1) === true && playerVar.includes(5) === true && 
+            playerVar.includes(9) === true || playerVar.includes(3) === true && playerVar.includes(5) === true && playerVar.includes(7)) {
+            console.log(player2o, player1x)
+            if (playerVar === player1x) return console.log(playerVar), player1x = [], player2o = [], "Player1 is The Winner!";
+            else console.log(playerVar), player1x = [], player2o = [], "player2 is The WInner!";
+        }
+
+        else if (player1x.length === 5 || player2o.length === 5) {
+            console.log(playerVar), player1x = [], player2o = [] 
+             
+            return "Draw";
+        } 
     }
 
+    
+    
     const invokeJudge  = function(square, variable) {
         
-        if (variable.length !== 3) {
+        if (variable.length < 3 || player1x.length === 3 || player2o.length === 3 || player1x.length > 3 || player2o.length > 3) {
             variable.push(square);
-        }
-        
-        else if (variable.length === 3) {
-            console.log(player1, player2)
-            return gameJudge()
+            console.log(player1x, player2o)
+            if (player1x.length === 3 || player2o.length === 3 || player1x.length === 5 || player2o.length === 5) {
+                return gamePatCall(variable)
+            }
         }
     }
 
     const player1s = function (square) {
 
         if (gameboard.includes(square) === false) return alert("Type Between 1-9 Numbers")
-        
-        else if (player1.includes(square) === true) return "It already exist!"
-
-        else if (player2.includes(square) === true && gameboard.includes(square) === true) {
+        else if (player1x.includes(square) === true) return "It already exist!"
+        else if (player2o.includes(square) === true && gameboard.includes(square) === true) {
                 
-                return alert("Type number from 1-9 or square has been chosen")
+            return alert("Type number from 1-9 or square has been chosen")
         }
             
-        else return  invokeJudge(square, player1);
+        else return  invokeJudge(square, player1x);
     }
 
     const player2s = function (square) {
 
         if (gameboard.includes(square) === false) return alert("Type Between 1-9 Numbers")
-        
-        else if (player2.includes(square) === true) return "It already exist!"
-        
-        else if (player1.includes(square) === true && gameboard.includes(square) === true) {
+        else if (player2o.includes(square) === true) return "It already exist!"
+        else if (player1x.includes(square) === true && gameboard.includes(square) === true) {
                 
-                return alert("Type number from 1-9 or square has been chosen")
+            return alert("Type number from 1-9 or square has been chosen")
         }
             
-        else return  invokeJudge(square, player2);
+        else return  invokeJudge(square, player2o);
     }
 
     return {player1s, player2s};
 })()
 
 
-// the winning annoucncement that gameJudge supposed to return isn't working.
-// problems with the if-else statements in the invokeJudge function.
-
-
+// the winning pattern data set will have 10 sets, in each of which there will be three numbers.
+// if the numbers in the player array matches with any of the data win set, then that player will be the winner.
+// a program should be made which will check every index numbers of the players array to find the winning
+// numbers.
 
 
 
