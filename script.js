@@ -26,11 +26,11 @@ const Gameboard = (function () {
                     || scoreBox1 === 2 || scoreBox2 === 2) return announcer();
                 else player1x = [], player2o = [], console.log("Player1 is The Winner!");
             } 
+            
             else {
                 console.log(playerVar)
                 scoreBox2++;
-                if ((player1x.length + player2o.length) === 9 && (drawScore + scoreBox1 + scoreBox2) === 3 ||
-                    scoreBox2 === 2 || scoreBox1 === 1) return announcer();
+                if ((drawScore + scoreBox1 + scoreBox2) === 3 || scoreBox1 === 2 || scoreBox2 === 2) return announcer();
                 else return player1x = [], player2o = [], console.log("Player2 is The Winner!");
             }
         }
@@ -40,13 +40,13 @@ const Gameboard = (function () {
             console.log(playerVar)
             drawScore++
             if ((player1x.length + player2o.length) === 9 && (drawScore + scoreBox1 + scoreBox2) === 3 ) return announcer();
-            else return player1x = [], player2o = [], console.log("Draw", drawScore + scoreBox1 + scoreBox2, player1x.length + player2o.length)
+            else return player1x = [], player2o = [], console.log("Draw!", drawScore)
         } 
     }
     
     const announcer = function() {
 
-        if (scoreBox1 > scoreBox2) {
+        if (scoreBox1 > scoreBox2 || drawScore === 2 && scoreBox1 === 1) {
             
             scoreBox1 = 0;
             scoreBox2 = 0;
@@ -55,7 +55,7 @@ const Gameboard = (function () {
             return console.log("player1 Congratulation, You Won The Game!");
         } 
 
-        else if (scoreBox2 > scoreBox1) {
+        else if (scoreBox2 > scoreBox1 || drawScore === 2 && scoreBox2 === 1) {
             
             scoreBox1 = 0
             scoreBox2 = 0
@@ -64,7 +64,7 @@ const Gameboard = (function () {
             return console.log("Player2 Congratulation, You Won The Game!")
         } 
         
-        else if (drawScore > (scoreBox1 + scoreBox2)) {
+        else if (scoreBox1 === 1 && scoreBox2 === 1 || drawScore === 3) {
             
             scoreBox1 = 0
             scoreBox2 = 0
@@ -78,7 +78,8 @@ const Gameboard = (function () {
 
         if (variable.length < 3 || player1x.length === 3 || player2o.length === 3 || player1x.length > 3 || player2o.length > 3) {
             variable.push(square);
-            if (player1x.length === 3 || player2o.length === 3 || player1x.length === 5 || player2o.length === 5) {
+            if (player1x.length === 3 || player2o.length === 3 || player1x === 4 || player2o.length === 4 || player1x.length === 5 
+                || player2o.length === 5) {
 
                 gamePatCall(variable);
             }
