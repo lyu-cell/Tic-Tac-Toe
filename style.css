@@ -1,7 +1,9 @@
 body {
     margin: 0;
-    background-color: #86efac;
-    height: 99vh;
+    background: url(a-beautiful-anime-style-summer-landscape-green-valley-river-high-mountains-with-snow-capped-peaks-blue-sky-with-white-clouds-ai-generated-photo\ \(1\).jpeg);
+    background-size: cover;
+    height: 100vh;
+
 }
 
 .gameContainer {
@@ -24,12 +26,14 @@ body {
     border: 20px dashed #38bdf8;
 }
 
-.squres {
+.squares {
     display: flex;
     border: 1px solid #38bdf8;
     justify-content: center;
     align-items: center;
     font-size: 4rem;
+    color: black;
+    background-color: rgb(217 249 157);
 }
 
 .scoreBoard {
@@ -43,3 +47,4 @@ body {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
 }
+

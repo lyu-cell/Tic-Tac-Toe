@@ -114,64 +114,139 @@ const Gameboard = (function () {
 })()
 
 
+    
+const square1 = document.querySelector(".squares");
+const square2 = document.querySelector(".square2");
+const square3 = document.querySelector(".square3");
+const square4 = document.querySelector(".square4");
+const square5 = document.querySelector(".square5");
+const square6 = document.querySelector(".square6");
+const square7 = document.querySelector(".square7");
+const square8 = document.querySelector(".square8");
+const square9 = document.querySelector(".square9");
 
-/*
+const gameboardArray = []
 
-Gameboard.player1s(5)
+square1.addEventListener("click", () => {
 
-Gameboard.player1s(3)
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square1.textContent === "") {
+        square1.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square1.textContent === "") {
+        square1.textContent = "X"
+        gameboardArray.push("X")
+    }
 
-Gameboard.player1s(4)
+})
 
-Gameboard.player1s(8)
+square2.addEventListener("click", () => {
 
-Gameboard.player2s(1)
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square2.textContent === "") {
+        square2.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square2.textContent === "") {
+        square2.textContent = "X"
+        gameboardArray.push("X")
+    }
 
-Gameboard.player2s(2)
+})
 
-Gameboard.player2s(7)
+square3.addEventListener("click", () => {
 
-Gameboard.player2s(6)
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square3.textContent === "") {
+        square3.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square3.textContent === "") {
+        square3.textContent = "X"
+        gameboardArray.push("X")
+    }
 
-Gameboard.player2s(9)
+})
+square4.addEventListener("click", () => {
+
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square4.textContent === "") {
+        square4.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square4.textContent === "") {
+        square4.textContent = "X"
+        gameboardArray.push("X")
+    }
+
+})
+square5.addEventListener("click", () => {
+
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square5.textContent === "") {
+        square5.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square5.textContent === "") {
+        square5.textContent = "X"
+        gameboardArray.push("X")
+    }
+
+})
+square6.addEventListener("click", () => {
+
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square6.textContent === "") {
+        square6.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square6.textContent === "") {
+        square6.textContent = "X"
+        gameboardArray.push("X")
+    }
+
+})
+square7.addEventListener("click", () => {
+
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square7.textContent === "") {
+        square7.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square7.textContent === "") {
+        square7.textContent = "X"
+        gameboardArray.push("X")
+    }
+
+})
+square8.addEventListener("click", () => {
+
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square8.textContent === "") {
+        square8.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square8.textContent === "") {
+        square8.textContent = "X"
+        gameboardArray.push("X")
+    }
+
+})
+square9.addEventListener("click", () => {
+
+    if (gameboardArray.length === 0 || gameboardArray[gameboardArray.length - 1] === "X" && square9.textContent === "") {
+        square9.textContent = "O"
+        gameboardArray.push("O")
+    }
+    else if (gameboardArray[gameboardArray.length - 1] === "O" && square9.textContent === "") {
+        square9.textContent = "X"
+        gameboardArray.push("X")
+    }
+
+})
+
+
+/* 
+
+the player function requires a number input to start the game.
+
+The first player is 0 and  the next one will be x.
+
+now write a function that will automatically switch between "x" and "o" depending on the players turn
 
 
 
-Gameboard.player1s(2)
-
-Gameboard.player1s(3)
-
-Gameboard.player1s(8)
-
-Gameboard.player1s(9)
-
-Gameboard.player2s(1)
-
-Gameboard.player2s(5)
-
-Gameboard.player2s(6)
-
-Gameboard.player2s(7)
-
-Gameboard.player2s(4)
-
-
-
-Gameboard.player2s(1)
-
-Gameboard.player2s(2)
-
-Gameboard.player2s(7)
-
-Gameboard.player2s(6)
-
-Gameboard.player2s(9)
-
-Gameboard.player1s(5)
-
-Gameboard.player1s(3)
-
-Gameboard.player1s(4)
-
-Gameboard.player1s(8)
- */
+*/
