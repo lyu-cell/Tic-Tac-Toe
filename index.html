@@ -21,11 +21,26 @@
             <div class="square9 squares"></div>
         </div>
         <div class="scoreBoard">
+            <button class="openDialogBtn">Game Start</button>
             <div class="player1 pp">Player 1: </div>
             <div class="player2 pp">Player 2:</div>
             <div class="round pp">Round: 1</div>
             <div class="at pp"></div>
         </div>
+        <dialog>
+            <form method="dialog" class="form">
+                <p class="dialogCaption">Write You And Your Opponents Names</p>
+                <label for="player1Input">Your Name: <input type="text" class="player1Input"></label>
+                <label for="player2Input">Opponents Name: <input type="text" class="player2Input"></label>
+                <label for="symbolSelect">Chose Your Symbol: 
+                    <select class="symbolSelect">
+                        <option value="O">O</option>
+                        <option value="X">X</option>
+                    </select>
+                </label>
+                <button class="submitBtn">Submit</button>
+            </form>
+        </dialog>
     </div>
 </body>
 </html>
