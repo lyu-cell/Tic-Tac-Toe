@@ -21,8 +21,10 @@ const InputAppraiser = (function() {
     const gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     const arrayFresh = () => {
+        console.log(`arrayfresh::Before: Player1: ${player1o} Player2: ${player2x}`)
         player1o = [];
         player2x = [];
+        console.log(`arrayfresh::after: Player1: ${player1o} Player2: ${player2x}`)
     }
 
     const appraise = (input, player) => {
@@ -45,6 +47,7 @@ const InputAppraiser = (function() {
             }
         }
     }
+
 
     return {appraise, arrayFresh, player2x, player1o}
 
@@ -85,8 +88,7 @@ const roundWinCheck = (function() {
             }
         }
         
-        else if (player === "p1" && playerVar.length === 5 && InputAppraiser.player2x.length === 4 || player === "p2" && 
-                playerVar.length === 4 && InputAppraiser.player1o.length === 5) {
+        else if (player === "p1" && playerVar.length === 5 ) {
 
             scoreBoard.setScore("drawScore");
 
@@ -172,12 +174,12 @@ const gameResult = (function() {
     const result = () => {
 
         if (playerScore("p1") > playerScore("p2") || playerScore("p1") > playerScore("drawScore") && playerScore("p1" > playerScore("p2")) ||
-            playerScore("drawScore") === 2 && playerScore("p1") === 1) return announcementBoard.textContent = `Congratulation ${nameInputEl.player1Ip.value}!`;
+            playerScore("drawScore") === 2 && playerScore("p1") === 1) return gameRestart.resetOpenDialogBtnTxt(), announcementBoard.textContent = `Congratulation ${nameInputEl.player1Ip.value}!`;
 
         else if (playerScore("p2") > playerScore("p1") || playerScore("p2") > playerScore("drawScore") && playerScore ("p2") > playerScore("p1") ||
-                playerScore("drawScore") === 2 && playerScore("p2") === 1) return announcementBoard.textContent = `Congratulation ${nameInputEl.player2Ip.value}!`;
+                playerScore("drawScore") === 2 && playerScore("p2") === 1) return gameRestart.resetOpenDialogBtnTxt(), announcementBoard.textContent = `Congratulation ${nameInputEl.player2Ip.value}!`;
             
-        else if (playerScore("p1") === 1 && playerScore("p2") === 1 || playerScore("drawScore") === 3) return announcementBoard.textContent ="Game Draw!";
+        else if (playerScore("p1") === 1 && playerScore("p2") === 1 || playerScore("drawScore") === 3) return gameRestart.resetOpenDialogBtnTxt(), announcementBoard.textContent ="Game Draw!";
     }
 
     return {result, playerScore, announcementBoard}
@@ -237,15 +239,54 @@ const nameInputEl = (function() {
     const player2Ip = document.querySelector(".player2Input")
 
     openDialog.addEventListener("click", () => {
-        dialog.showModal()
+        if(openDialog.textContent === "Restart") {
+            gameRestart.restart()
+            dialog.showModal()
+        }
+        else {
+            dialog.showModal()
+        }
     })
     
-    submitBtn.addEventListener("click", () => {
-        
+    function restartScoreDom() {
         document.querySelector(".player1").textContent = `${player1Ip.value}: `
         document.querySelector(".player2").textContent = `${player2Ip.value}: `
+        document.querySelector(".round").textContent = `Round: `
+    }
+
+    submitBtn.addEventListener("click", () => {
+        document.querySelector(".player1").textContent = `${player1Ip.value}: `
+        document.querySelector(".player2").textContent = `${player2Ip.value}: `
+        if (openDialog.textContent === "Restart") return openDialog.textContent = "Game Start"
     })
 
 
-    return {player1Ip, player2Ip}
+    return {player1Ip, player2Ip, restartScoreDom}
+})()
+
+
+
+const gameRestart = (function() {
+    
+    const restart = () => {
+        InputAppraiser.arrayFresh()
+        SquareSelect.refreshSqDom()
+        document.querySelector(".at").textContent = ""
+        scoreBoard.refreshScore()
+        nameInputEl.restartScoreDom()
+        
+    }
+
+    document.querySelector(".openDialogBtn").addEventListener("click", () => {
+        if (document.querySelector(".openDialogBtn").textContent === "Restart") {restart()} 
+    })
+
+    const resetOpenDialogBtnTxt = () => {
+        
+        if (document.querySelector(".round").textContent === `Round: 3`) [
+            document.querySelector(".openDialogBtn").textContent = "Restart"
+        ]
+    }
+    
+    return {resetOpenDialogBtnTxt, restart}
 })()
