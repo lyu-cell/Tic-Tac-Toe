@@ -1,3 +1,4 @@
+// This function is only responsible for taking input and sending user inputs
 const inputTaker = (function() {
 
     const player1 = (input) => {
@@ -12,40 +13,32 @@ const inputTaker = (function() {
 })()
 
 
-    
+// This function adds the inputs to the corresponding container of both player.
+// when player input containers and appraises the container to check if it has sufficient inputs for the next step 
+// which will compare the  two players input or choices and announce the winner of the round
 const InputAppraiser = (function() {
     
     let player1o = []
     let player2x = []
-    
-    const gameBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     const arrayFresh = () => {
-        console.log(`arrayfresh::Before: Player1: ${player1o} Player2: ${player2x}`)
         player1o = [];
         player2x = [];
-        console.log(`arrayfresh::after: Player1: ${player1o} Player2: ${player2x}`)
     }
 
     const appraise = (input, player) => {
         
-        if (gameBoard.includes(input) === false) return alert("Type Between 1-9 Numbers");
-        else if (player1o.includes(input) === true || player2x.includes(input) === true) {
-            console.log("This Square Has already Been Selected!");
-        } 
-        else {
-        
-            if (player === "p1") {
-                
-                player1o.push(input)
-                if(player1o.length === 3 || player1o.length === 4 || player1o.length === 5) return roundWinCheck.roundWin(player1o, "p1")
-            }
-            else if (player === "p2") {
+        if (player === "p1") {
             
-                player2x.push(input)
-                if(player2x.length === 3 || player2x.length === 4) return roundWinCheck.roundWin(player2x, "p2")
-            }
+            player1o.push(input)
+            if(player1o.length === 3 || player1o.length === 4 || player1o.length === 5) return roundWinCheck.roundWin(player1o, "p1")
         }
+        else if (player === "p2") {
+        
+            player2x.push(input)
+            if(player2x.length === 3 || player2x.length === 4) return roundWinCheck.roundWin(player2x, "p2")
+        }
+        
     }
 
 
@@ -55,7 +48,9 @@ const InputAppraiser = (function() {
 
 
 
-
+// This function does exactly that, it puts the inputs through a series of conditions to check which players inputs wins.
+// which if none passes it will declare draw if all the square of the game board has been filled else it will take 
+// more inputs until all the game board squares has been filed.
 const roundWinCheck = (function() {
     
     const roundWin = function (playerVar, player) {
@@ -105,7 +100,9 @@ const roundWinCheck = (function() {
 
 
 
-
+// This function adds scores to both player containers when ever one wins or if its draw it also give that
+// a score for round counting purposes and it also manages all the game score related things, such as reading the score
+// containers of the player or emptying them when necessary.
 const scoreBoard = (function() {
 
     let scoreBox1 = 0;
@@ -159,7 +156,9 @@ const scoreBoard = (function() {
 })()
 
 
-
+// This function is responsible for checking who wins the whole game after all there rounds have been completed 
+// it does so based on the data provided by the score board function, the end game result is decided based on a series a conditions 
+// being met.
 const gameResult = (function() {
 
     const announcementBoard = document.querySelector(".at");
@@ -186,7 +185,8 @@ const gameResult = (function() {
 })()
 
 
-// this module targets squares of the game board 
+// this module targets squares of the game board and populates the squares based on user interactions and it also refreshes
+// the square when called for.
 const SquareSelect = (function() {
     
     let ticMark = []
@@ -229,7 +229,8 @@ const SquareSelect = (function() {
     return {squareArray, refreshSqDom}
 })()
 
-
+// The name input element function is responsible getting the user name of both player when entered or using the default
+// when none is provided.
 const nameInputEl = (function() {
 
     const dialog = document.querySelector("dialog");
