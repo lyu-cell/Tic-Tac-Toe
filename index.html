@@ -10,15 +10,15 @@
 <body>
     <div class="gameContainer">
         <div class="gameBoard">
-            <div class="square1 squares"></div>
-            <div class="square2 squares"></div>
-            <div class="square3 squares"></div>
-            <div class="square4 squares"></div>
-            <div class="square5 squares"></div>
-            <div class="square6 squares"></div>
-            <div class="square7 squares"></div>
-            <div class="square8 squares"></div>
-            <div class="square9 squares"></div>
+            <div class="square1 squares" data-key="1"></div>
+            <div class="square2 squares" data-key="2"></div>
+            <div class="square3 squares" data-key="3"></div>
+            <div class="square4 squares" data-key="4"></div>
+            <div class="square5 squares" data-key="5"></div>
+            <div class="square6 squares" data-key="6"></div>
+            <div class="square7 squares" data-key="7"></div>
+            <div class="square8 squares" data-key="8"></div>
+            <div class="square9 squares" data-key="9"></div>
         </div>
         <div class="scoreBoard">
             <button class="openDialogBtn">Game Start</button>
@@ -30,14 +30,8 @@
         <dialog>
             <form method="dialog" class="form">
                 <p class="dialogCaption">Write You And Your Opponents Names</p>
-                <label for="player1Input">Your Name: <input type="text" class="player1Input"></label>
-                <label for="player2Input">Opponents Name: <input type="text" class="player2Input"></label>
-                <label for="symbolSelect">Chose Your Symbol: 
-                    <select class="symbolSelect">
-                        <option value="O">O</option>
-                        <option value="X">X</option>
-                    </select>
-                </label>
+                <label for="player1Input">Player 1 (O): <input type="text" class="player1Input" value="Player1" required></label>
+                <label for="player2Input">Player 2 (X): <input type="text" class="player2Input" value="player2" required></label>
                 <button class="submitBtn">Submit</button>
             </form>
         </dialog>

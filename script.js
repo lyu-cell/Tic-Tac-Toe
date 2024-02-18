@@ -36,17 +36,17 @@ const InputAppraiser = (function() {
             if (player === "p1") {
                 
                 player1o.push(input)
-                if(player1o.length === 3) return roundWinCheck.roundWin(player1o, "p1")
+                if(player1o.length === 3 || player1o.length === 4 || player1o.length === 5) return roundWinCheck.roundWin(player1o, "p1")
             }
             else if (player === "p2") {
             
                 player2x.push(input)
-                if(player2x.length === 3) return roundWinCheck.roundWin(player2x, "p2")
+                if(player2x.length === 3 || player2x.length === 4) return roundWinCheck.roundWin(player2x, "p2")
             }
         }
     }
 
-    return {appraise, arrayFresh}
+    return {appraise, arrayFresh, player2x, player1o}
 
 })()
 
@@ -69,7 +69,8 @@ const roundWinCheck = (function() {
                 scoreBoard.setScore("p1");
                 
                 if (scoreBoard.totalScore() === 3) return gameResult.result()
-                console.log("Player1 Is The Winner!");
+                gameResult.announcementBoard.textContent = `${nameInputEl.player1Ip.value} Is The Winner!`;
+                SquareSelect.refreshSqDom()
                 InputAppraiser.arrayFresh();
             } 
             
@@ -78,16 +79,20 @@ const roundWinCheck = (function() {
                 scoreBoard.setScore("p2");
                 
                 if(scoreBoard.totalScore() === 3) return gameResult.result()
-                console.log("Player2 Is The Winner!");
+                gameResult.announcementBoard.textContent = `${nameInputEl.player2Ip.value} Is The Winner!`;
+                SquareSelect.refreshSqDom()
                 InputAppraiser.arrayFresh()
             }
         }
-        else {
+        
+        else if (player === "p1" && playerVar.length === 5 && InputAppraiser.player2x.length === 4 || player === "p2" && 
+                playerVar.length === 4 && InputAppraiser.player1o.length === 5) {
 
             scoreBoard.setScore("drawScore");
 
             if(scoreBoard.totalScore() === 3) return gameResult.result()
-            console.log("Draw!")
+            gameResult.announcementBoard.textContent = "Draw!";
+            SquareSelect.refreshSqDom()
             InputAppraiser.arrayFresh()
         }
     }
@@ -104,12 +109,29 @@ const scoreBoard = (function() {
     let scoreBox1 = 0;
     let scoreBox2 = 0;
     let drawScore = 0;
+    
+    const player1DomEl = document.querySelector(".player1")
+    const player2DomEl = document.querySelector(".player2")
+    const roundCountEl = document.querySelector(".round")
 
     const setScore = (scoreContainer) => {
 
-        if(scoreContainer === "p1") return scoreBox1++;
-        else if(scoreContainer === "p2") return scoreBox2++;
-        else if (scoreContainer === "drawScore") return drawScore++;
+        if(scoreContainer === "p1") {
+            scoreBox1++
+            player1DomEl.textContent = `${nameInputEl.player1Ip.value}: ${scoreBox1}`;
+            roundCountEl.textContent = `Round: ${scoreBox1+scoreBox2+drawScore}`
+            
+        } 
+        else if(scoreContainer === "p2") {
+            scoreBox2++
+            player2DomEl.textContent = `${nameInputEl.player2Ip.value}: ${scoreBox2}`;
+            roundCountEl.textContent = `Round: ${scoreBox1+scoreBox2+drawScore}`
+        } 
+        else if (scoreContainer === "drawScore") {
+            
+            drawScore++
+            roundCountEl.textContent = `Round: ${scoreBox1+scoreBox2+drawScore}`;
+        }   
     }
 
     const refreshScore = () => {
@@ -119,11 +141,11 @@ const scoreBoard = (function() {
         drawScore = 0;
     }
 
-    const getScore = (boxes) => {
+    const getScore = (player) => {
 
-        if(boxes === "p1") return scoreBox1;
-        else if(boxes === "p2") return scoreBox2;
-        else if (boxes === "drawScore") return drawScore;
+        if(player === "p1") return scoreBox1;
+        else if(player === "p2") return scoreBox2;
+        else if (player === "drawScore") return drawScore;
     }
 
     const totalScore = () => {
@@ -138,22 +160,92 @@ const scoreBoard = (function() {
 
 const gameResult = (function() {
 
+    const announcementBoard = document.querySelector(".at");
+
     const playerScore = function(scoreContainer) {
+        
         if (scoreContainer === "p1") return scoreBoard.getScore("p1");
         else if (scoreContainer === "p2") return scoreBoard.getScore("p2");
         else if (scoreContainer === "drawScore") return scoreBoard.getScore("drawScore");
     }
 
     const result = () => {
-        
+
         if (playerScore("p1") > playerScore("p2") || playerScore("p1") > playerScore("drawScore") && playerScore("p1" > playerScore("p2")) ||
-            playerScore("drawScore") === 2 && playerScore("p1") === 1) return console.log("Congratulation Player 1!");
+            playerScore("drawScore") === 2 && playerScore("p1") === 1) return announcementBoard.textContent = `Congratulation ${nameInputEl.player1Ip.value}!`;
 
         else if (playerScore("p2") > playerScore("p1") || playerScore("p2") > playerScore("drawScore") && playerScore ("p2") > playerScore("p1") ||
-                playerScore("drawScore") === 2 && playerScore("p2") === 1) return console.log("Congratulation Player 2!");
+                playerScore("drawScore") === 2 && playerScore("p2") === 1) return announcementBoard.textContent = `Congratulation ${nameInputEl.player2Ip.value}!`;
             
-        else if (playerScore("p1") === 1 && playerScore("p2") === 1 || playerScore("drawScore") === 3) return console.log("Game Draw!");
+        else if (playerScore("p1") === 1 && playerScore("p2") === 1 || playerScore("drawScore") === 3) return announcementBoard.textContent ="Game Draw!";
     }
 
-    return {result, playerScore}
+    return {result, playerScore, announcementBoard}
+})()
+
+
+// this module targets squares of the game board 
+const SquareSelect = (function() {
+    
+    let ticMark = []
+    let squareArray = []
+    
+    for(let i = 1; i < 10; i++) {
+     squareArray.push(document.querySelector(`.square${i}`))   
+    }
+     
+    const dynamicSquare = function(square) {
+        
+        square.addEventListener("click", () => {
+
+            let squareEl = square;
+            if (scoreBoard.totalScore() === 3) {}
+            else if(square.textContent === "" && ticMark[ticMark.length -1] === "X" || ticMark.length === 0) {
+                square.textContent = "O"
+                ticMark.push("O")
+                inputTaker.player1(Number(squareEl.getAttribute("data-key")))
+            }
+            else if ( square.textContent === "" && ticMark.length !== 0 && ticMark[ticMark.length -1] === "O"){
+                square.textContent = "X";
+                ticMark.push("X")
+                inputTaker.player2(Number(squareEl.getAttribute("data-key")))
+            }
+        })
+    }
+
+    for (let i = 0; i < 9; i++) {
+        dynamicSquare(squareArray[i])
+    }
+
+    const refreshSqDom = () => {
+        ticMark = []
+        for (let i = 0; i < 9; i++) {
+            squareArray[i].textContent = ""
+        }
+    } 
+
+    return {squareArray, refreshSqDom}
+})()
+
+
+const nameInputEl = (function() {
+
+    const dialog = document.querySelector("dialog");
+    const submitBtn = document.querySelector(".submitBtn")
+    const openDialog = document.querySelector(".openDialogBtn");
+    const player1Ip = document.querySelector(".player1Input")
+    const player2Ip = document.querySelector(".player2Input")
+
+    openDialog.addEventListener("click", () => {
+        dialog.showModal()
+    })
+    
+    submitBtn.addEventListener("click", () => {
+        
+        document.querySelector(".player1").textContent = `${player1Ip.value}: `
+        document.querySelector(".player2").textContent = `${player2Ip.value}: `
+    })
+
+
+    return {player1Ip, player2Ip}
 })()
